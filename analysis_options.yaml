@@ -10,6 +10,9 @@ analyzer:
     - "**.g.dart"
     - web/**
 
+plugins:
+  riverpod_lint: 3.1.9
+
 linter:
   rules:
     - always_use_package_imports
