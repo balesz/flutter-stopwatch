@@ -25,12 +25,12 @@ void main() {
       await expectLater(
         state(),
         completion(
-          predicate<StopwatchServiceState>(
-            (val) => switch (val) {
+          predicate<StopwatchServiceState>((val) {
+            return switch (val) {
               StopwatchRunning(duration: > const Duration(seconds: 1)) => true,
               _ => false,
-            },
-          ),
+            };
+          }),
         ),
       );
     },
@@ -53,16 +53,17 @@ void main() {
       service.start();
       await Future.delayed(Duration(milliseconds: 1500));
       service.pause();
+      await Future.delayed(Duration(milliseconds: 1500));
 
       await expectLater(
         state(),
         completion(
-          predicate<StopwatchServiceState>(
-            (val) => switch (val) {
-              StopwatchPaused(duration: > const Duration(seconds: 1)) => true,
+          predicate<StopwatchServiceState>((val) {
+            return switch (val) {
+              StopwatchPaused(duration: > const Duration(seconds: 1) && < const Duration(seconds: 2)) => true,
               _ => false,
-            },
-          ),
+            };
+          }),
         ),
       );
     },
@@ -81,10 +82,36 @@ void main() {
       container.listen(stopwatchServiceProvider, (_, _) {});
 
       await expectLater(state(), completion(isA<StopwatchStopped>()));
+
       service.start();
-      await expectLater(state(), completion(isA<StopwatchRunning>()));
+      await Future.delayed(Duration(milliseconds: 1500));
+
+      await expectLater(
+        state(),
+        completion(
+          predicate<StopwatchServiceState>((val) {
+            return switch (val) {
+              StopwatchRunning(duration: > const Duration(seconds: 1)) => true,
+              _ => false,
+            };
+          }),
+        ),
+      );
+
       service.reset();
-      await expectLater(state(), completion(isA<StopwatchStopped>()));
+      await Future.delayed(Duration(milliseconds: 1500));
+
+      await expectLater(
+        state(),
+        completion(
+          predicate<StopwatchServiceState>((val) {
+            return switch (val) {
+              StopwatchStopped() => true,
+              _ => false,
+            };
+          }),
+        ),
+      );
     },
   );
 }

@@ -10,11 +10,14 @@ void main() {
     await tester.pump(Duration(seconds: 1));
 
     expect(find.widgetWithText(FilledButton, 'Start'), findsOneWidget);
+    expect(find.widgetWithText(FilledButton, 'Pause'), findsNothing);
+    expect(find.widgetWithText(FilledButton, 'Reset'), findsNothing);
     expect(find.text('00:00:00'), findsOneWidget);
 
     await tester.tap(find.widgetWithText(FilledButton, 'Start'));
     await tester.pump(Duration(seconds: 1));
 
+    expect(find.widgetWithText(FilledButton, 'Start'), findsNothing);
     expect(find.widgetWithText(FilledButton, 'Pause'), findsOneWidget);
     expect(find.widgetWithText(FilledButton, 'Reset'), findsOneWidget);
     expect(find.text('00:00:00'), findsNothing);
@@ -22,6 +25,9 @@ void main() {
     await tester.tap(find.widgetWithText(FilledButton, 'Reset'));
     await tester.pump(Duration(seconds: 1));
 
+    expect(find.widgetWithText(FilledButton, 'Start'), findsOneWidget);
+    expect(find.widgetWithText(FilledButton, 'Pause'), findsNothing);
+    expect(find.widgetWithText(FilledButton, 'Reset'), findsNothing);
     expect(find.text('00:00:00'), findsOneWidget);
   });
 }
