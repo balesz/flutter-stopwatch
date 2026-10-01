@@ -12,19 +12,32 @@ class StopwatchViewLogic extends _$StopwatchViewLogic {
   StopwatchService get _service => ref.read(stopwatchServiceProvider.notifier);
   LapRepository get _lapRepo => ref.read(lapRepositoryProvider.notifier);
 
+  bool _isAnalogClockVisible = false;
+
   @override
   Future<StopwatchViewState> build() async {
     final stopwattch = await ref.watch(stopwatchServiceProvider.future);
     return StopwatchViewState(
+      isAnalogClockVisible: _isAnalogClockVisible,
       isLapButtonVisible: stopwattch is StopwatchRunning,
       isPauseButtonVisible: stopwattch is StopwatchRunning,
       isResetButtonVisible: stopwattch is! StopwatchStopped,
+      duration: switch (stopwattch) {
+        StopwatchRunning(:final duration) => duration,
+        StopwatchPaused(:final duration) => duration,
+        _ => Duration.zero,
+      },
       digitalText: switch (stopwattch) {
         StopwatchRunning(:final duration) => duration.asDigitalText,
         StopwatchPaused(:final duration) => duration.asDigitalText,
         _ => '00:00:00',
       },
     );
+  }
+
+  void toggleAnalogClock() {
+    _isAnalogClockVisible = !_isAnalogClockVisible;
+    ref.invalidateSelf();
   }
 
   void start() {
@@ -53,9 +66,11 @@ class StopwatchViewLogic extends _$StopwatchViewLogic {
 @freezed
 abstract class StopwatchViewState with _$StopwatchViewState {
   const factory StopwatchViewState({
+    @Default(false) bool isAnalogClockVisible,
     @Default(false) bool isLapButtonVisible,
     @Default(false) bool isPauseButtonVisible,
     @Default(false) bool isResetButtonVisible,
+    @Default(Duration.zero) Duration duration,
     @Default('00:00:00') String digitalText,
   }) = _StopwatchViewState;
 }

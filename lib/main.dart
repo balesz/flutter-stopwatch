@@ -19,6 +19,7 @@ class StopwatchApp extends StatelessWidget {
       title: 'Stopwatch Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.green)),
       home: const StopwatchView(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
