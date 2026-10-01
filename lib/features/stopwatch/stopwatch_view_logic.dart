@@ -1,4 +1,6 @@
+import 'package:flutter_stopwatch/repositories/lap_repository.dart';
 import 'package:flutter_stopwatch/services/stopwatch_service.dart';
+import 'package:flutter_stopwatch/utils/duration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,11 +10,13 @@ part 'stopwatch_view_logic.g.dart';
 @riverpod
 class StopwatchViewLogic extends _$StopwatchViewLogic {
   StopwatchService get _service => ref.read(stopwatchServiceProvider.notifier);
+  LapRepository get _lapRepo => ref.read(lapRepositoryProvider.notifier);
 
   @override
   Future<StopwatchViewState> build() async {
     final stopwattch = await ref.watch(stopwatchServiceProvider.future);
     return StopwatchViewState(
+      isLapButtonVisible: stopwattch is StopwatchRunning,
       isPauseButtonVisible: stopwattch is StopwatchRunning,
       isResetButtonVisible: stopwattch is! StopwatchStopped,
       digitalText: switch (stopwattch) {
@@ -33,20 +37,15 @@ class StopwatchViewLogic extends _$StopwatchViewLogic {
 
   void reset() {
     _service.reset();
+    _lapRepo.clear();
   }
-}
 
-////////////////////////////////////////////////////////////////////////////////
-
-extension on Duration {
-  String get asDigitalText => [
-    ...toString()
-        .split(RegExp(r'[:\.]')) //
-        .skip(1)
-        .map((i) => int.parse(i))
-        .map((i) => '$i'.padLeft(2, '0'))
-        .map((i) => i.substring(0, 2)),
-  ].join(':');
+  void lap() async {
+    final stopwatch = await ref.read(stopwatchServiceProvider.future);
+    if (stopwatch case StopwatchRunning(:final duration)) {
+      _lapRepo.add(duration);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +53,7 @@ extension on Duration {
 @freezed
 abstract class StopwatchViewState with _$StopwatchViewState {
   const factory StopwatchViewState({
+    @Default(false) bool isLapButtonVisible,
     @Default(false) bool isPauseButtonVisible,
     @Default(false) bool isResetButtonVisible,
     @Default('00:00:00') String digitalText,

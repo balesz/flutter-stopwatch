@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_stopwatch/features/laps/laps_view.dart';
 import 'package:flutter_stopwatch/features/stopwatch/stopwatch_view_logic.dart';
 
 class StopwatchView extends ConsumerWidget {
@@ -20,6 +21,8 @@ class StopwatchView extends ConsumerWidget {
         slivers: [
           sliverGap(16.0),
           SliverToBoxAdapter(child: _DigitalClock()),
+          sliverGap(16.0),
+          SliverToBoxAdapter(child: const LapsView()),
           sliverGap(16.0),
           SliverToBoxAdapter(child: _Buttons()),
         ],
@@ -53,6 +56,10 @@ class _Buttons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final logic = ref.watch(stopwatchViewLogicProvider.notifier);
 
+    final isLapButtonVisible = ref.watch(
+      (stopwatchViewLogicProvider.select((i) => i.requireValue.isLapButtonVisible)),
+    );
+
     final isResetButtonVisible = ref.watch(
       (stopwatchViewLogicProvider.select((i) => i.requireValue.isResetButtonVisible)),
     );
@@ -75,6 +82,8 @@ class _Buttons extends ConsumerWidget {
           FilledButton(style: buttonStyle, onPressed: logic.start, child: Text('Start')),
         if (isResetButtonVisible) //
           FilledButton(style: buttonStyle, onPressed: logic.reset, child: Text('Reset')),
+        if (isLapButtonVisible) //
+          FilledButton(style: buttonStyle, onPressed: logic.lap, child: Text('Lap')),
       ],
     );
   }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StopwatchViewState {
 
- bool get isPauseButtonVisible; bool get isResetButtonVisible; String get digitalText;
+ bool get isLapButtonVisible; bool get isPauseButtonVisible; bool get isResetButtonVisible; String get digitalText;
 /// Create a copy of StopwatchViewState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $StopwatchViewStateCopyWith<StopwatchViewState> get copyWith => _$StopwatchViewS
 @override
 bool operator ==(Object other) {
   final _this = this as StopwatchViewState;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StopwatchViewState&&(identical(other.isPauseButtonVisible, _this.isPauseButtonVisible) || other.isPauseButtonVisible == _this.isPauseButtonVisible)&&(identical(other.isResetButtonVisible, _this.isResetButtonVisible) || other.isResetButtonVisible == _this.isResetButtonVisible)&&(identical(other.digitalText, _this.digitalText) || other.digitalText == _this.digitalText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StopwatchViewState&&(identical(other.isLapButtonVisible, _this.isLapButtonVisible) || other.isLapButtonVisible == _this.isLapButtonVisible)&&(identical(other.isPauseButtonVisible, _this.isPauseButtonVisible) || other.isPauseButtonVisible == _this.isPauseButtonVisible)&&(identical(other.isResetButtonVisible, _this.isResetButtonVisible) || other.isResetButtonVisible == _this.isResetButtonVisible)&&(identical(other.digitalText, _this.digitalText) || other.digitalText == _this.digitalText));
 }
 
 
 @override
 int get hashCode {
   final _this = this as StopwatchViewState;
-  return Object.hash(runtimeType,_this.isPauseButtonVisible,_this.isResetButtonVisible,_this.digitalText);
+  return Object.hash(runtimeType,_this.isLapButtonVisible,_this.isPauseButtonVisible,_this.isResetButtonVisible,_this.digitalText);
 }
 
 @override
 String toString() {
   final _this = this as StopwatchViewState;
-  return 'StopwatchViewState(isPauseButtonVisible: ${_this.isPauseButtonVisible}, isResetButtonVisible: ${_this.isResetButtonVisible}, digitalText: ${_this.digitalText})';
+  return 'StopwatchViewState(isLapButtonVisible: ${_this.isLapButtonVisible}, isPauseButtonVisible: ${_this.isPauseButtonVisible}, isResetButtonVisible: ${_this.isResetButtonVisible}, digitalText: ${_this.digitalText})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $StopwatchViewStateCopyWith<$Res>  {
   factory $StopwatchViewStateCopyWith(StopwatchViewState value, $Res Function(StopwatchViewState) _then) = _$StopwatchViewStateCopyWithImpl;
 @useResult
 $Res call({
- bool isPauseButtonVisible, bool isResetButtonVisible, String digitalText
+ bool isLapButtonVisible, bool isPauseButtonVisible, bool isResetButtonVisible, String digitalText
 });
 
 
@@ -68,9 +68,10 @@ class _$StopwatchViewStateCopyWithImpl<$Res>
 
 /// Create a copy of StopwatchViewState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isPauseButtonVisible = null,Object? isResetButtonVisible = null,Object? digitalText = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLapButtonVisible = null,Object? isPauseButtonVisible = null,Object? isResetButtonVisible = null,Object? digitalText = null,}) {
   return _then(StopwatchViewState(
-isPauseButtonVisible: null == isPauseButtonVisible ? _self.isPauseButtonVisible : isPauseButtonVisible // ignore: cast_nullable_to_non_nullable
+isLapButtonVisible: null == isLapButtonVisible ? _self.isLapButtonVisible : isLapButtonVisible // ignore: cast_nullable_to_non_nullable
+as bool,isPauseButtonVisible: null == isPauseButtonVisible ? _self.isPauseButtonVisible : isPauseButtonVisible // ignore: cast_nullable_to_non_nullable
 as bool,isResetButtonVisible: null == isResetButtonVisible ? _self.isResetButtonVisible : isResetButtonVisible // ignore: cast_nullable_to_non_nullable
 as bool,digitalText: null == digitalText ? _self.digitalText : digitalText // ignore: cast_nullable_to_non_nullable
 as String,
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLapButtonVisible,  bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StopwatchViewState() when $default != null:
-return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
+return $default(_that.isLapButtonVisible,_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLapButtonVisible,  bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)  $default,) {final _that = this;
 switch (_that) {
 case _StopwatchViewState():
-return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
+return $default(_that.isLapButtonVisible,_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLapButtonVisible,  bool isPauseButtonVisible,  bool isResetButtonVisible,  String digitalText)?  $default,) {final _that = this;
 switch (_that) {
 case _StopwatchViewState() when $default != null:
-return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
+return $default(_that.isLapButtonVisible,_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digitalText);case _:
   return null;
 
 }
@@ -214,9 +215,10 @@ return $default(_that.isPauseButtonVisible,_that.isResetButtonVisible,_that.digi
 
 
 class _StopwatchViewState implements StopwatchViewState {
-  const _StopwatchViewState({this.isPauseButtonVisible = false, this.isResetButtonVisible = false, this.digitalText = '00:00:00'});
+  const _StopwatchViewState({this.isLapButtonVisible = false, this.isPauseButtonVisible = false, this.isResetButtonVisible = false, this.digitalText = '00:00:00'});
   
 
+@override@JsonKey() final  bool isLapButtonVisible;
 @override@JsonKey() final  bool isPauseButtonVisible;
 @override@JsonKey() final  bool isResetButtonVisible;
 @override@JsonKey() final  String digitalText;
@@ -231,18 +233,18 @@ _$StopwatchViewStateCopyWith<_StopwatchViewState> get copyWith => __$StopwatchVi
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StopwatchViewState&&(identical(other.isPauseButtonVisible, isPauseButtonVisible) || other.isPauseButtonVisible == isPauseButtonVisible)&&(identical(other.isResetButtonVisible, isResetButtonVisible) || other.isResetButtonVisible == isResetButtonVisible)&&(identical(other.digitalText, digitalText) || other.digitalText == digitalText));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StopwatchViewState&&(identical(other.isLapButtonVisible, isLapButtonVisible) || other.isLapButtonVisible == isLapButtonVisible)&&(identical(other.isPauseButtonVisible, isPauseButtonVisible) || other.isPauseButtonVisible == isPauseButtonVisible)&&(identical(other.isResetButtonVisible, isResetButtonVisible) || other.isResetButtonVisible == isResetButtonVisible)&&(identical(other.digitalText, digitalText) || other.digitalText == digitalText));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,isPauseButtonVisible,isResetButtonVisible,digitalText);
+    return Object.hash(runtimeType,isLapButtonVisible,isPauseButtonVisible,isResetButtonVisible,digitalText);
 }
 
 @override
 String toString() {
-    return 'StopwatchViewState(isPauseButtonVisible: $isPauseButtonVisible, isResetButtonVisible: $isResetButtonVisible, digitalText: $digitalText)';
+    return 'StopwatchViewState(isLapButtonVisible: $isLapButtonVisible, isPauseButtonVisible: $isPauseButtonVisible, isResetButtonVisible: $isResetButtonVisible, digitalText: $digitalText)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$StopwatchViewStateCopyWith<$Res> implements $StopwatchVie
   factory _$StopwatchViewStateCopyWith(_StopwatchViewState value, $Res Function(_StopwatchViewState) _then) = __$StopwatchViewStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isPauseButtonVisible, bool isResetButtonVisible, String digitalText
+ bool isLapButtonVisible, bool isPauseButtonVisible, bool isResetButtonVisible, String digitalText
 });
 
 
@@ -270,9 +272,10 @@ class __$StopwatchViewStateCopyWithImpl<$Res>
 
 /// Create a copy of StopwatchViewState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isPauseButtonVisible = null,Object? isResetButtonVisible = null,Object? digitalText = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLapButtonVisible = null,Object? isPauseButtonVisible = null,Object? isResetButtonVisible = null,Object? digitalText = null,}) {
   return _then(_StopwatchViewState(
-isPauseButtonVisible: null == isPauseButtonVisible ? _self.isPauseButtonVisible : isPauseButtonVisible // ignore: cast_nullable_to_non_nullable
+isLapButtonVisible: null == isLapButtonVisible ? _self.isLapButtonVisible : isLapButtonVisible // ignore: cast_nullable_to_non_nullable
+as bool,isPauseButtonVisible: null == isPauseButtonVisible ? _self.isPauseButtonVisible : isPauseButtonVisible // ignore: cast_nullable_to_non_nullable
 as bool,isResetButtonVisible: null == isResetButtonVisible ? _self.isResetButtonVisible : isResetButtonVisible // ignore: cast_nullable_to_non_nullable
 as bool,digitalText: null == digitalText ? _self.digitalText : digitalText // ignore: cast_nullable_to_non_nullable
 as String,
