@@ -1,6 +1,5 @@
 import 'package:flutter_stopwatch/repositories/lap_repository.dart';
 import 'package:flutter_stopwatch/services/stopwatch_service.dart';
-import 'package:flutter_stopwatch/utils/duration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,11 +25,6 @@ class StopwatchViewLogic extends _$StopwatchViewLogic {
         StopwatchRunning(:final duration) => duration,
         StopwatchPaused(:final duration) => duration,
         _ => Duration.zero,
-      },
-      digitalText: switch (stopwattch) {
-        StopwatchRunning(:final duration) => duration.asDigitalText,
-        StopwatchPaused(:final duration) => duration.asDigitalText,
-        _ => '00:00:00',
       },
     );
   }
@@ -71,6 +65,5 @@ abstract class StopwatchViewState with _$StopwatchViewState {
     @Default(false) bool isPauseButtonVisible,
     @Default(false) bool isResetButtonVisible,
     @Default(Duration.zero) Duration duration,
-    @Default('00:00:00') String digitalText,
   }) = _StopwatchViewState;
 }

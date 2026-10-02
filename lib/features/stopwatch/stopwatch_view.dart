@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_stopwatch/features/laps/laps_view.dart';
 import 'package:flutter_stopwatch/features/stopwatch/stopwatch_view_logic.dart';
+import 'package:flutter_stopwatch/utils/duration.dart';
 import 'package:flutter_stopwatch/widgets/analog_clock.dart';
 
 class StopwatchView extends ConsumerWidget {
   const StopwatchView({super.key});
+
+  Widget _sliverGap(double gap) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: gap / 2),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,34 +26,28 @@ class StopwatchView extends ConsumerWidget {
       stopwatchViewLogicProvider.select((i) => i.requireValue.isAnalogClockVisible),
     );
 
-    Widget sliverGap(double gap) {
-      return SliverPadding(padding: EdgeInsets.symmetric(vertical: gap / 2));
-    }
-
     return Scaffold(
       appBar: AppBar(
         actions: [
           Row(
+            spacing: 4.0,
             children: [
               Text('Analog', style: TextTheme.of(context).titleLarge),
-              Switch(
-                value: isAnalogClockVisible,
-                onChanged: (_) => logic.toggleAnalogClock(),
-              ),
+              Switch(value: isAnalogClockVisible, onChanged: (_) => logic.toggleAnalogClock()),
             ],
           ),
         ],
       ),
       body: CustomScrollView(
         slivers: [
-          sliverGap(16.0),
+          _sliverGap(16.0),
           if (isAnalogClockVisible)
             SliverToBoxAdapter(child: _AnalogClock())
           else
             SliverToBoxAdapter(child: _DigitalClock()),
-          sliverGap(16.0),
+          _sliverGap(16.0),
           SliverToBoxAdapter(child: const LapsView()),
-          sliverGap(16.0),
+          _sliverGap(16.0),
           SliverToBoxAdapter(child: _Buttons()),
         ],
       ),
@@ -54,17 +55,20 @@ class StopwatchView extends ConsumerWidget {
   }
 }
 
-class _AnalogClock extends ConsumerWidget {
+class _AnalogClock extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final duration = ref.watch(stopwatchViewLogicProvider.select((i) => i.requireValue.duration));
+  Widget build(BuildContext context) {
     return Container(
       height: 250,
       alignment: Alignment.center,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: AnalogClock(duration: duration),
+          child: Consumer(
+            builder: (context, ref, child) => AnalogClock(
+              duration: ref.watch(stopwatchViewLogicProvider.select((i) => i.requireValue.duration)),
+            ),
+          ),
         ),
       ),
     );
@@ -80,9 +84,9 @@ class _DigitalClock extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Consumer(
-            builder: (ctx, ref, _) => Text(
-              ref.watch(stopwatchViewLogicProvider.select((i) => i.requireValue.digitalText)),
-              style: TextTheme.of(ctx).displayLarge,
+            builder: (context, ref, child) => Text(
+              ref.watch(stopwatchViewLogicProvider.select((i) => i.requireValue.duration.asDigitalText)),
+              style: TextTheme.of(context).displayLarge,
             ),
           ),
         ),
@@ -110,7 +114,7 @@ class _Buttons extends ConsumerWidget {
 
     final buttonStyle = FilledButton.styleFrom(
       padding: EdgeInsets.symmetric(horizontal: 64, vertical: 32),
-      textStyle: TextTheme.of(context).displaySmall,
+      textStyle: TextTheme.of(context).headlineLarge,
     );
 
     return Column(

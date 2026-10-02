@@ -34,7 +34,7 @@ final class StopwatchViewLogicProvider
 }
 
 String _$stopwatchViewLogicHash() =>
-    r'cf51e208e24280c3fa9fb52b79fae7d0fe38f322';
+    r'4f5398decff9d3139052c0088a9a2e53103b2a44';
 
 abstract class _$StopwatchViewLogic extends $AsyncNotifier<StopwatchViewState> {
   FutureOr<StopwatchViewState> build();
