@@ -39,4 +39,27 @@ void main() {
       expectLater(state(), completion(equals(LapsViewState(itemCount: 1))));
     },
   );
+
+  test(
+    'WHEN the clear method of LapsViewLogic is executed '
+    'THEN the LapRepository is cleared and the itemCount of LapsViewState is zero',
+    () async {
+      final container = ProviderContainer.test(
+        overrides: [
+          lapRepositoryProvider.overrideWithBuild((_, _) => [LapEntity(Duration(seconds: 2))]),
+        ],
+      );
+
+      final logic = container.read(lapsViewLogicProvider.notifier);
+      state() => container.read(lapsViewLogicProvider.future);
+      container.listen(lapsViewLogicProvider, (_, _) {});
+
+      expectLater(state(), completion(equals(LapsViewState(itemCount: 1))));
+
+      logic.clear();
+      await Future.delayed(Duration(milliseconds: 100));
+
+      expectLater(state(), completion(equals(LapsViewState(itemCount: 0))));
+    },
+  );
 }
