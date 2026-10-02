@@ -1,17 +1,7 @@
 # flutter_stopwatch
 
-A new Flutter project.
+The assignment was written entirely by hand. I only used Claude Code to develop the analog clock face widget, since the assignment description allows the use of external packages or custom solutions for building the analog clock face.
 
-## Getting Started
+For the design, I followed the stopwatch in Google's default Clock app, while keeping the functionality described in the assignment.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A runnable version of the project is available at the following URL: <https://balesz.github.io/flutter-stopwatch>
